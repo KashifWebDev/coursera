@@ -1,30 +1,72 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Food from "../assets/Food.jpg";
-import "./Header.css";
+import React, { useState } from "react";
+import logo from "../assets/Asset 16@4x.png";
+import classes from "./Header.module.css";
 
-const Header = () => {
+export default function Header({ onOpenLayout }) {
+  const [drawerOpen, setDawerOpen] = useState(false);
+
+  function drawerToggleHandlerByShihFengHsu() {
+    setDawerOpen(!drawerOpen);
+  }
+
   return (
-    <header>
-      <div className="left-side">
-        <h1>Little Lemon</h1>
-        <h2>Chicago</h2>
-        <p>
-          We are a family owned Mediterranean restaurant, focused on traditional
-          recipes served with a modern twist.
-        </p>
-        <button>
-          <Link to="/booking">Reserve a table</Link>
-        </button>
-      </div>
-      <div className="right-side">
-        <img
-          src={Food}
-          alt="our cook holding a tablet with delicoues baguettes"
-        />
-      </div>
+    <header className={classes.mainHeader}>
+      <nav className={classes.nav}>
+        <div className={classes.logoDrawerContainer}>
+          <img src={logo} alt="logo" className={classes.logo} />
+          <div
+            className={classes.drawerButton}
+            onClick={drawerToggleHandlerByShihFengHsu}
+          >
+            <span></span>
+            {/*ByShihFengHsu*/}
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <ul className={`${classes.navUl} ${drawerOpen && classes.drawerOpen}`}>
+          <li>
+            <a href="/">Home</a>
+          </li>
+
+          <li>About</li>
+          {/*To prevent redirect, 
+          remove the link for now,
+          ByShihFengHsu
+          */}
+
+          <li>Menu</li>
+          {/*To prevent redirect, 
+          remove the link for now,
+          ByShihFengHsu
+          */}
+
+          <li
+            onClick={() => {
+              onOpenLayout();
+            }}
+          >
+            Reservation
+          </li>
+          {/*To prevent redirect, 
+          remove the link for now,
+          ByShihFengHsu
+          */}
+
+          <li>Order Online</li>
+          {/*To prevent redirect, 
+          remove the link for now,
+          ByShihFengHsu
+          */}
+
+          <li>Login</li>
+          {/*To prevent redirect, 
+          remove the link for now,
+          ByShihFengHsu
+          */}
+        </ul>
+      </nav>
     </header>
   );
-};
-
-export default Header;
+}

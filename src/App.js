@@ -1,39 +1,27 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./layouts/NavBar";
-import Footer from "./layouts/Footer";
-import Home from "./pages/Home";
-import Booking from "./pages/Booking";
-import BookingConfirmation from "./pages/BookingConfirmation";
-import { useFormContext } from "./store/FormContext";
-import "./App.css";
+import { useState } from "react";
+
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Hightlights from "./components/Hightlights";
+import BookingForm from "./components/BookingForm";
 
 function App() {
-  const { form } = useFormContext();
+  const [bookingFormOpen, setBookingFormOpen] = useState(false);
 
-  const formProps = {
-    name: form.name,
-    date: form.date,
-    time: form.time,
-    guests: form.numberOfGuests,
-    occasion: form.occasion,
-    table: form.tablePreference,
-    request: form.message,
-  };
+  function openBookingFormHandler() {
+    setBookingFormOpen(!bookingFormOpen);
+  }
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route
-          path="/booking-confirmation"
-          element={<BookingConfirmation {...formProps} />}
-        />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <>
+      {bookingFormOpen && (
+        <BookingForm onCloseLayout={openBookingFormHandler} />
+      )}
+      <Header onOpenLayout={openBookingFormHandler}></Header>
+      <Hero onOpenLayout={openBookingFormHandler}></Hero>
+      <Hightlights></Hightlights>
+      <footer style={{ height: "5rem" }}></footer>
+    </>
   );
 }
 
